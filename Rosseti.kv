@@ -1,0 +1,70 @@
+
+<MyButton@Button>:
+    font_name: 'PF Din Text Comp Pro Medium Regular.ttf'
+    font_size: '25sp'
+    background_color: [.0, .34, .58, 1]
+    background_normal: ''
+
+<MyLabel@Label>:
+    font_name: 'PF Din Text Comp Pro Medium Regular.ttf'
+    font_size: '30sp'
+    markup: True
+
+<MyTextInput@TextInput>:
+    font_name: 'PF Din Text Comp Pro Medium Regular.ttf'
+    font_size: '30sp'
+    markup: True
+    haling: 'left'
+    valing: 'middle'
+    ext_size: self.size
+    multiline: False
+
+<Container>:
+    rows: 3
+    padding: [30, 30, 30, 30]
+    Image:
+        source: '1.png'
+
+    MyLabel:
+        text: f'[color=#135794]Рационализаторский портал[/color]'
+
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+
+        MyButton:
+            text: 'Регистрация'
+            #on_release:
+                #root.check()
+
+        MyButton:
+            text: 'Войти'
+            on_release:
+                root.entrance()
+
+<Container1>:
+    rows: 3
+    padding: [30, 30, 30, 30]
+    text_login: text_login
+    text_pass: text_pass
+
+    Image:
+        source: '1.png'
+
+    MyLabel:
+        text: f'[color=#135794]Рационализаторский портал[/color]'
+
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+
+        MyTextInput:
+            id: text_login
+            text: 'логин'
+
+        MyTextInput:
+            id: text_pass
+            text: 'пароль'
+
+        MyButton:
+            text: 'Войти'
