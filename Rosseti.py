@@ -115,12 +115,34 @@ Builder.load_string('''
             MyLabel:
                 id: text_Label
                 pos_hint: {'x': .01, 'y': .01}
-                text: f'[color=#135794]Добро пожаловать[/color]'
+                text: f'[color=#135794]Петров Пётр Петрович[/color]'
 
-                    
         Image:
             source: 'hello.png'
+
+<HomeScreen>:
+    text_Label: text_Label
+
+    MyGridLayout:
+        rows: 2
+        
+        FloatLayout:
+            Image:
+                pos_hint: {'x': .25, 'y': .8}
+                size_hint: .5, .3
+                source: '1.png'
                 
+            MyLabel:
+                pos_hint: {'x': .01, 'y': .13}
+                text: f'[color=#135794]Добро пожаловать[/color]'
+            
+            MyLabel:
+                id: text_Label
+                pos_hint: {'x': .01, 'y': .01}
+                text: f'[color=#135794]Петров Пётр Петрович[/color]'
+
+        Image:
+            source: 'hello.png'
                 
 <Protocol418Screen>:
     GridLayout:
@@ -144,12 +166,14 @@ Builder.load_string('''
             
             
 ''')
-
-
-class OneScreen(Screen):
+class User_data():
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.user_data = '0'
+        # self.user_data = {'user': {'fio': 'Петров Пупкин Петрович'}}
+
+class OneScreen(Screen, User_data):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     def check_input(self):
         login = self.text_login.text.lower()
@@ -163,7 +187,7 @@ class OneScreen(Screen):
                 if self.user_data.get('status') == 'ok':
                     self.text_login.required = False
                     self.text_pass.required = False
-                    self.manager.current = 'hello'
+                    self.manager.current = 'home'
                     break
                 else:
                     self.text_login.required = True
@@ -175,14 +199,15 @@ class CheckScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def previous_button(self):
-        self.manager.current = 'one'
-
 
 class HelloScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.manager.current = 'one'
+
+
+class HomeScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
 
 class Protocol418Screen(Screen):
@@ -197,6 +222,7 @@ class RossetiApp(MDApp):
     def build(self):
         sm = ScreenManager(transition=FadeTransition())
         sm.add_widget(OneScreen(name='one'))
+        sm.add_widget(HomeScreen(name='home'))
         sm.add_widget(Protocol418Screen(name='Protocol418'))
         sm.add_widget(HelloScreen(name='hello'))
         return sm
