@@ -43,7 +43,7 @@ Builder.load_string('''
             pos:self.pos
             size:self.size
     padding: 50
-    
+        
 # первая страница 
 
 <OneScreen>:
@@ -116,33 +116,68 @@ Builder.load_string('''
                 id: text_Label
                 pos_hint: {'x': .01, 'y': .01}
                 text: f'[color=#135794]Петров Пётр Петрович[/color]'
-
+                
         Image:
             source: 'hello.png'
 
 <HomeScreen>:
-    text_Label: text_Label
-
+    text_search: text_search
+    
     MyGridLayout:
         rows: 2
         
         FloatLayout:
             Image:
-                pos_hint: {'x': .25, 'y': .8}
+                pos_hint: {'x': .25, 'y': .85}
                 size_hint: .5, .3
-                source: '1.png'
+                source: '1.png' 
+          
+        
+        MyTextInput:
+            pos_hint: {'x': .50, 'y': .80}
+            id: text_search
+            hint_text: 'Поиск'
+    
+    
+    BoxLayout:
+        padding: [40, 0, 40, 0]
+        spacing: 27
+        
+        MDIconButton:
+            icon: 'home-06.png'
+            on_press:
+                self.icon = 'home-01.png'
+            on_release:
+                self.icon = 'home-06.png'
                 
-            MyLabel:
-                pos_hint: {'x': .01, 'y': .13}
-                text: f'[color=#135794]Добро пожаловать[/color]'
+                
+        MDIconButton:
+            icon: 'ideas-03.png'
+            on_press:
+                self.icon = 'ideas-08.png'
+            on_release:
             
-            MyLabel:
-                id: text_Label
-                pos_hint: {'x': .01, 'y': .01}
-                text: f'[color=#135794]Петров Пётр Петрович[/color]'
+            
+        MDIconButton:
+            user_font_size: "70sp"
+            icon: 'new_idea-05.png'
+            on_release:
 
-        Image:
-            source: 'hello.png'
+
+        MDIconButton:
+            icon: 'message-04.png'
+            on_press:
+                self.icon = 'message-09.png'
+            on_release:
+            
+            
+        MDIconButton:
+            icon: 'profile-02.png'
+            on_press:
+                self.icon = 'profile-07.png'
+            on_release:    
+        
+            
                 
 <Protocol418Screen>:
     GridLayout:
@@ -169,7 +204,7 @@ Builder.load_string('''
 class User_data():
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # self.user_data = {'user': {'fio': 'Петров Пупкин Петрович'}}
+
 
 class OneScreen(Screen, User_data):
     def __init__(self, **kwargs):
@@ -178,6 +213,7 @@ class OneScreen(Screen, User_data):
     def check_input(self):
         login = self.text_login.text.lower()
         pas = self.text_pass.text
+
         while True:
             url = f'https://secure-harbor-01729.herokuapp.com/api/v1/check_user/?format=' \
                   f'json&user_login={login}&user_password={pas}'
